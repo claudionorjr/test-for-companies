@@ -17,7 +17,7 @@ namespace TestForCompanies.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Test for BluData.";
+            ViewData["Message"] = "Test for Companies.";
             ViewData["Dev"] = "Claudionor Silva";
 
             return View();
@@ -25,7 +25,7 @@ namespace TestForCompanies.Controllers
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Entre em contato.";
+            ViewData["Message"] = "Contact me.";
             ViewData["phone"] = "(47) 999658451";
 
             return View();
