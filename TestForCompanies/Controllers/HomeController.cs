@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using TestForCompanies.Models;
+using TestForCompanies.Models.ViewModels;
 
 namespace TestForCompanies.Controllers
 {
@@ -17,14 +17,16 @@ namespace TestForCompanies.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
+            ViewData["Message"] = "Test for BluData.";
+            ViewData["Dev"] = "Claudionor Silva";
 
             return View();
         }
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Your contact page.";
+            ViewData["Message"] = "Entre em contato.";
+            ViewData["phone"] = "(47) 999658451";
 
             return View();
         }
