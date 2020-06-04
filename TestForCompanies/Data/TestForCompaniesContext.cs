@@ -13,6 +13,7 @@ namespace TestForCompanies.Models
         {
         }
 
-        public DbSet<TestForCompanies.Models.Company> Company { get; set; }
+        public DbSet<Company> Company { get; set; }
+        public DbSet<Purveyor> Purveyor { get; set; }
     }
 }
