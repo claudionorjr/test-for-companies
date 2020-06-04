@@ -9,6 +9,13 @@ namespace TestForCompanies.Controllers
 {
     public class CompaniesController : Controller
     {
+        //private readonly TestForCompaniesContext _context;
+
+        //public CompaniesController(TestForCompaniesContext context)
+        //{
+        //   _context = context
+        //}
+
         public IActionResult Index()
         {
             List<Company> list = new List<Company>();
