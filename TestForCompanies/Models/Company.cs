@@ -34,10 +34,5 @@ namespace TestForCompanies.Models
         {
             Purveyors.Remove(purveyor);
         }
-
-        //public void GetAllByCreatedAt(DateTime initial, DateTime final)
-        //{
-        //    Purveyors.Where(dt => dt.CreatedAt >= initial && dt.CreatedAt <= final);
-        //}
     }
 }
