@@ -16,6 +16,7 @@ namespace TestForCompanies.Models
         public DateTime BirthDate { get; set; }
         public string Phone { get; set; }
         public Company Company { get; set; }
+        public int CompanyId { get; set; }
 
         public Purveyor()
         {

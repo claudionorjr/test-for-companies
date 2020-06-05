@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TestForCompanies.Data;
 using TestForCompanies.Models;
+using TestForCompanies.Services;
 
 namespace TestForCompanies
 {
@@ -35,6 +36,7 @@ namespace TestForCompanies
             builder.MigrationsAssembly("TestForCompanies")));
 
             services.AddScoped<SeedingService>();
+            services.AddScoped<PurveyorService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, SeedingService seedingService)
