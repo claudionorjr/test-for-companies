@@ -1,20 +1,16 @@
 ﻿@model TestForCompanies.Models.ViewModels.PurveyorFormViewModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
 }
 
-<h2>Create New Purveyor</h2>
+<h2>Edit Purveyor</h2>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox"> Pessoa Física?
-                </label>
-            </div>
+            <input type="hidden" asp-for="Purveyor.Id" />
             <div class="form-group">
                 <label asp-for="Purveyor.Uf" class="control-label"></label>
                 <span asp-validation-for="Purveyor.Uf" class="text-danger"></span>
@@ -89,7 +85,7 @@
                 <select asp-for="Purveyor.CompanyId" asp-items="@(new SelectList(Model.Companies, "Id", "TradingName"))" class="form-control"></select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-success" />
+                <input type="submit" value="Save" class="btn btn-success" />
             </div>
         </form>
     </div>
@@ -98,3 +94,7 @@
 <div>
     <a class="btn btn-default" asp-action="Index">Back to List</a>
 </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

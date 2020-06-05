@@ -37,6 +37,8 @@ namespace TestForCompanies
 
             services.AddScoped<SeedingService>();
             services.AddScoped<PurveyorService>();
+            services.AddScoped<CompanyService>();
+
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, SeedingService seedingService)
