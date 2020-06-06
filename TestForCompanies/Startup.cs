@@ -38,6 +38,7 @@ namespace TestForCompanies
             services.AddScoped<SeedingService>();
             services.AddScoped<PurveyorService>();
             services.AddScoped<CompanyService>();
+            services.AddScoped<FilterService>();
 
         }
 
