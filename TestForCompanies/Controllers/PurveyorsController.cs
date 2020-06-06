@@ -130,6 +130,19 @@ namespace TestForCompanies.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Purveyor purveyor)
         {
+            DateTime timeNow = DateTime.Now;
+            DateTime ageNow = purveyor.BirthDate;
+
+            if (timeNow.Year - ageNow.Year < 19 && purveyor.Uf == "PR" && ageNow.Month <= timeNow.Month && ageNow.Day < timeNow.Day)
+            {
+                return RedirectToAction(nameof(Error), new { message = "You need have age '18' or more, in State 'PR'." });
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(purveyor);
+            }
+
             if (!ModelState.IsValid)
             {
                 var companies = await _companyService.FindAllAsync();
