@@ -10,12 +10,16 @@ namespace TestForCompanies.Models
     {
         public int Id { get; set; }
 
+        [Required]
         [Display(Name = "State/UF")]
         public string Uf { get; set; }
 
+        [Required]
+        [StringLength(20, MinimumLength = 3)]
         [Display(Name = "Trading Name")]
         public string TradingName { get; set; }
 
+        [Required]
         [Display(Name = "CNPJ")]
         public string Cnpj { get; set; }
 

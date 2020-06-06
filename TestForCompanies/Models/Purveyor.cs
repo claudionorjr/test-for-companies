@@ -8,21 +8,28 @@ namespace TestForCompanies.Models
     {
         public int Id { get; set; }
 
+        [Required(ErrorMessage ="{0} Required! Don't Have CNPJ? put you name!")]
+        [StringLength(20, MinimumLength = 3)]
         [Display(Name = "Owner Company")]
         public string CompanyName { get; set; }
 
+        [Required]
         public string Name { get; set; }
 
+        [Required]
         [Display(Name = "State/UF")]
         public string Uf { get; set; }
 
+        [Required]
         [Display(Name = "RG")]
         public string Rg { get; set; }
 
+        [Required]
         [Display(Name = "CPF")]
         [DataType(DataType.PhoneNumber)]
         public string Cpf { get; set; }
 
+        [Required]
         [Display(Name = "CNPJ")]
         public string Cnpj { get; set; }
 
@@ -30,10 +37,12 @@ namespace TestForCompanies.Models
         [DataType(DataType.Date)]
         public DateTime CreatedAt { get; set; }
 
+        [Required]
         [Display(Name = "Birth Date")]
         [DataType(DataType.Date)]
         public DateTime BirthDate { get; set; }
 
+        [Required]
         [DataType(DataType.PhoneNumber)]
         public string Phone { get; set; }
 

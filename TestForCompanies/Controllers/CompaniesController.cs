@@ -1,8 +1,10 @@
-﻿using System.Linq;
+﻿using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TestForCompanies.Models;
+using TestForCompanies.Models.ViewModels;
 
 namespace TestForCompanies.Controllers
 {
@@ -24,14 +26,14 @@ namespace TestForCompanies.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id not provided" });
             }
 
             var company = await _context.Company
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (company == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id not found" });
             }
 
             return View(company);
@@ -46,6 +48,11 @@ namespace TestForCompanies.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Uf,TradingName,Cnpj")] Company company)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(company);
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(company);
@@ -59,13 +66,13 @@ namespace TestForCompanies.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id not provided" });
             }
 
             var company = await _context.Company.FindAsync(id);
             if (company == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id not found" });
             }
             return View(company);
         }
@@ -74,9 +81,14 @@ namespace TestForCompanies.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Uf,TradingName,Cnpj")] Company company)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(company);
+            }
+
             if (id != company.Id)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id mismatch" });
             }
 
             if (ModelState.IsValid)
@@ -90,7 +102,7 @@ namespace TestForCompanies.Controllers
                 {
                     if (!CompanyExists(company.Id))
                     {
-                        return NotFound();
+                        return RedirectToAction(nameof(Error), new { message = "Company not found" });
                     }
                     else
                     {
@@ -106,14 +118,14 @@ namespace TestForCompanies.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id not provided" });
             }
 
             var company = await _context.Company
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (company == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id not found" });
             }
 
             return View(company);
@@ -132,6 +144,17 @@ namespace TestForCompanies.Controllers
         private bool CompanyExists(int id)
         {
             return _context.Company.Any(e => e.Id == id);
+        }
+
+        public IActionResult Error(string message)
+        {
+            var viewModel = new ErrorViewModel
+            {
+                Message = message,
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            };
+
+            return View(viewModel);
         }
     }
 }

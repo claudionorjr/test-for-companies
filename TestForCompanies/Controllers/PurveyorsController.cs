@@ -5,7 +5,6 @@ using System.Diagnostics;
 using TestForCompanies.Models;
 using TestForCompanies.Models.ViewModels;
 using TestForCompanies.Services;
-using TestForCompanies.Services.Exceptions;
 
 namespace TestForCompanies.Controllers
 {
@@ -37,17 +36,35 @@ namespace TestForCompanies.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Purveyor purveyor)
         {
+            if (!ModelState.IsValid)
+            {
+                var companies = _companyService.FindAll();
+                var viewModel = new PurveyorFormViewModel { Companies = companies };
+                return View(viewModel);
+            }
+
             DateTime timeNow = DateTime.Now;
             DateTime ageNow = purveyor.BirthDate;
 
             if (timeNow.Year - ageNow.Year < 19 && purveyor.Uf == "PR" && ageNow.Month <= timeNow.Month && ageNow.Day < timeNow.Day)
             {
-                return RedirectToAction(nameof(Error), new { message = "You can't have age >= 18, in State 'PR'" });
+                return RedirectToAction(nameof(Error), new { message = "You need have age '18' or more, in State 'PR'." });
             }
-            
-            _purveyorService.Insert(purveyor);
-            return RedirectToAction(nameof(Index));
-            
+
+            if (!ModelState.IsValid)
+            {
+                return View(purveyor);
+            }
+
+            try
+            {
+                _purveyorService.Insert(purveyor);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (ApplicationException e)
+            {
+                return RedirectToAction(nameof(Error), new { message = e.Message });
+            }
         }
 
         public IActionResult Delete(int? id)
@@ -112,6 +129,18 @@ namespace TestForCompanies.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, Purveyor purveyor)
         {
+            if (!ModelState.IsValid)
+            {
+                var companies = _companyService.FindAll();
+                var viewModel = new PurveyorFormViewModel { Companies = companies };
+                return View(viewModel);
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(purveyor);
+            }
+
             if (id != purveyor.Id)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id mismatch" });
