@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using TestForCompanies.Models;
 using TestForCompanies.Models.ViewModels;
 using TestForCompanies.Services;
@@ -19,26 +20,26 @@ namespace TestForCompanies.Controllers
             _companyService = companyService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var list = _purveyorService.FindAll();
+            var list = await _purveyorService.FindAllAsync();
             return View(list);
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            var companies = _companyService.FindAll();
+            var companies = await _companyService.FindAllAsync();
             var viewModel = new PurveyorFormViewModel { Companies = companies };
             return View(viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Purveyor purveyor)
+        public async Task<IActionResult> Create(Purveyor purveyor)
         {
             if (!ModelState.IsValid)
             {
-                var companies = _companyService.FindAll();
+                var companies = await _companyService.FindAllAsync();
                 var viewModel = new PurveyorFormViewModel { Companies = companies };
                 return View(viewModel);
             }
@@ -58,7 +59,7 @@ namespace TestForCompanies.Controllers
 
             try
             {
-                _purveyorService.Insert(purveyor);
+                await _purveyorService.InsertAsync(purveyor);
                 return RedirectToAction(nameof(Index));
             }
             catch (ApplicationException e)
@@ -67,14 +68,14 @@ namespace TestForCompanies.Controllers
             }
         }
 
-        public IActionResult Delete(int? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id not provided" });
             }
 
-            var obj = _purveyorService.FindById(id.Value);
+            var obj = await _purveyorService.FindByIdAsync(id.Value);
             if (obj == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id not found" });
@@ -85,20 +86,20 @@ namespace TestForCompanies.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            _purveyorService.Remove(id);
+            await _purveyorService.RemoveAsync(id);
             return RedirectToAction(nameof(Index));
         }
 
-        public IActionResult Details(int? id)
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id not provided" });
             }
 
-            var obj = _purveyorService.FindById(id.Value);
+            var obj = await _purveyorService.FindByIdAsync(id.Value);
             if (obj == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id not found" });
@@ -107,31 +108,31 @@ namespace TestForCompanies.Controllers
             return View(obj);
         }
 
-        public IActionResult Edit(int? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id not provided" });
             }
 
-            var obj = _purveyorService.FindById(id.Value);
+            var obj = await _purveyorService.FindByIdAsync(id.Value);
             if (obj == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id not found" });
             }
 
-            List<Company> companies = _companyService.FindAll();
+            List<Company> companies = await _companyService.FindAllAsync();
             PurveyorFormViewModel viewModal = new PurveyorFormViewModel { Purveyor = obj, Companies = companies };
             return View(viewModal);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, Purveyor purveyor)
+        public async Task<IActionResult> Edit(int id, Purveyor purveyor)
         {
             if (!ModelState.IsValid)
             {
-                var companies = _companyService.FindAll();
+                var companies = await _companyService.FindAllAsync();
                 var viewModel = new PurveyorFormViewModel { Companies = companies };
                 return View(viewModel);
             }
@@ -147,7 +148,7 @@ namespace TestForCompanies.Controllers
             }
             try
             {
-                _purveyorService.Update(purveyor);
+                await _purveyorService.UpdateAsync(purveyor);
                 return RedirectToAction(nameof(Index));
             }
             catch (ApplicationException e)

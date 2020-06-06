@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using TestForCompanies.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace TestForCompanies.Services
 {
@@ -13,9 +15,9 @@ namespace TestForCompanies.Services
             _context = context;
         }
 
-        public List<Company> FindAll()
+        public async Task<List<Company>> FindAllAsync()
         {
-            return _context.Company.OrderBy(x => x.TradingName).ToList();
+            return await _context.Company.OrderBy(x => x.TradingName).ToListAsync();
         }
 
     }
