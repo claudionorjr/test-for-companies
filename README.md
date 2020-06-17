@@ -4,6 +4,7 @@
 ## Antes de Executar localmente o MVC
 
 ### Primeiro passo: 
+***OBS***: Seu Banco MySQL precisa estar operando.
 - Abrir o arquivo `appsettings.json` dentro da pasta `TestForCompanies`
 - Editar a linha:
 `"TestForCompaniesContext": "server=localhost;userid=root;password=SuaSenha;database=NomeDoBanco"`
@@ -15,6 +16,10 @@
 1) `Add-Migration Initial` ***Obs***: `Initial` é o nome da Migration, pode ser qualquer um!
 2) `Update-Database` Com esse comando, seu banco de dados será criado!
 
+
+## Executando o MVC
+- Abra o projeto `TestForCompanies.sln`
+- Basta executar o comando `Ctrl + F5` por padrão abrirar o MVC em `https://localhost:44373/ `.
 
 ## Sobre o MVC - TestForCompanies
 
@@ -41,7 +46,7 @@ Telefone
 - O projeto tem uma opção para "Auto Popular" o banco de dados.
 - pode ser desabilitada comentando ou excluindo as linhas abaixo:
 
-          ```C#
+          ```csharp
 		  _context.Company.AddRange(c1, c2, c3, c4);
            _context.Purveyor.AddRange(`
                 p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15,
@@ -50,10 +55,6 @@ Telefone
            _context.SaveChanges();
 		   ```
 
-
-## Executando o MVC
-- Abra o projeto `TestForCompanies.sln`
-- Basta executar o comando `Ctrl + F5` por padrão abrirar o MVC em `https://localhost:44373/ `.
 
 ## Para o projeto foi usado
 

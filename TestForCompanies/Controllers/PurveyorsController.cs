@@ -59,7 +59,6 @@ namespace TestForCompanies.Controllers
 
             try
             {
-                purveyor.CreatedAt = DateTime.Now;
                 await _purveyorService.InsertAsync(purveyor);
                 return RedirectToAction(nameof(Index));
             }

@@ -31,7 +31,7 @@ namespace TestForCompanies.Controllers
             }
             ViewData["minDate"] = minDate.Value.ToString("yyyy-MM-dd");
             ViewData["maxDate"] = maxDate.Value.ToString("yyyy-MM-dd");
-            maxDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day + 1);
+            maxDate = new DateTime(maxDate.Value.Year, maxDate.Value.Month, maxDate.Value.Day);
             var result = await _filterService.FindByDateAsync(minDate, maxDate);
             return View(result);
         }
