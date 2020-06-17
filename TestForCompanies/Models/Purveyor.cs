@@ -64,7 +64,7 @@ namespace TestForCompanies.Models
             Rg = rg;
             Cpf = cpf;
             Cnpj = cnpj;
-            CreatedAt = DateTime.Now;
+            CreatedAt = CreatedAt;
             BirthDate = birthDate;
             Phone = phone;
             Company = company;

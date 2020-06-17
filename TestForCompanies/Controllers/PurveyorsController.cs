@@ -59,6 +59,7 @@ namespace TestForCompanies.Controllers
 
             try
             {
+                purveyor.CreatedAt = DateTime.Now;
                 await _purveyorService.InsertAsync(purveyor);
                 return RedirectToAction(nameof(Index));
             }
@@ -135,7 +136,7 @@ namespace TestForCompanies.Controllers
 
             if (timeNow.Year - ageNow.Year < 19 && purveyor.Uf == "PR" && ageNow.Month <= timeNow.Month && ageNow.Day < timeNow.Day)
             {
-                return RedirectToAction(nameof(Error), new { message = "You need have age '18' or more, in State 'PR'." });
+                return RedirectToAction(nameof(Error), new { message = "You need have age 18 or more, in State PR." });
             }
 
             if (!ModelState.IsValid)
